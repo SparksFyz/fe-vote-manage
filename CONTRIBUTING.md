@@ -1,17 +1,10 @@
 # rc-admin 
-> react-后台管理系统
-
-[Home 主页](https://github.com/SuJunming/rc-admin)
-[Demo 示例](https://sujunming.github.io/)
-
-
+# author:95_小生(苏俊明)
+### 最下方增加版本更新日志😁
+### 前言
   欢迎使用后台管理系统解决方案
-  本项目是针对(后台人员)or(外包人员)or前端快速搭建后台管理系统而创建
+  本项目是针对后台人员or外包人员or快速搭建后台管理系统创建
 - [GitHub地址](https://github.com/SuJunming/rc-admin)
-### 最近更新
-```jsn
-升级所有模块到最新,近期会陆续更新
-```
 ### 依赖模块
 <span style="color: rgb(184,49,47);">项目是用create-react-app创建的，主要还是列出新加的功能依赖包</span>
 
@@ -36,25 +29,23 @@
 +-- build/                                  ---打包的文件目录
 +-- config/                                 ---npm run eject 后的配置文件目录
 +-- src/                                    ---核心代码目录
-|   +-- axios                               ---axios请求
-|   |    --- demo.js                          ---axios demo
-|   +-- components                          ---各式各样的组件存放目录
+|   +-- axios                               ---http请求demo
+|   |    --- demo.js                        
+|   +-- components                          ---各式各样的组件存放目录
 |   +-- javascript                          ---接口api and 公共函数 
-|   |    --- commonFun                        ---几十种公共函数
-|   +-- router                              ---路由配置文件
-|   |    --- nav                              ---菜单定义
-|   |    --- RouterUrl                        ---路由定义
-|   +-- styles                              ---项目的样式存放目录
+|   |    --- commonFun                      ---几十种公共函数
+|   +-- router                              ---菜单 and 路由定义
+|   +-- styles                              ---项目的样式存放目录
 |   --- App.js                              ---组件入口文件
 |   --- index.js                            ---项目的整体js入口文件
 --- .env                                    ---启动项目自定义端口配置文件
---- package.json                            ---依赖 and 配置文件 
+--- package.json                                    
 ```
 ### 安装运行
 
 ##### 1.克隆项目
 ```js
-git clone https://github.com/SuJunming/react15-admin.git
+git clone https://github.com/SuJunming/rc-admin.git
 ```
 ##### 2.npm安装相关包文件(国内建议增加淘宝镜像源，不然很慢，你懂的😁)
 ```js
@@ -71,9 +62,7 @@ npm run build
 ### 结尾
 该项目会不定时更新，后续时间会添加更多的模块
 
-当然后续也会添加封装的UI组件
-
 若有问题，可加QQ群221859379与我交流
 
-如果对你有帮助，给个star哟~~❤️❤️❤️❤️❤️
+如果对你有帮助，给个star哟~~❤️❤️❤️❤️❤️❤️❤️
 

@@ -1,40 +1,73 @@
-import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import './App.sass';
-
-const { Header, Content, Footer } = Layout;
-
+import React, { Component } from "react";
+import { Layout, Icon } from "antd";
+import { bindActionCreators } from 'redux';
+import { BrowserRouter } from "react-router-dom";
+import { connect } from 'react-redux';
+import { receiveData } from './redux/action';
+import Nav from "./router/Nav";
+import RouterUrl from "./router/RouterUrl";
+import "./App.css";
+const { Header, Sider,Footer } = Layout
+const mapStateToProps = state => {
+  const  data = state.defaultData;
+  return {data};
+};
+const mapDispatchToProps = dispatch => ({
+  receiveData:bindActionCreators(receiveData, dispatch)
+});
+@connect(mapStateToProps,mapDispatchToProps) 
 class App extends Component {
+  state = {
+    collapsed: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  };
+  componentDidMount = async () => {
+    await this.props.receiveData();
+    console.log('初始化redux-state:');
+    console.log(this.props.data)
+  }
+  
   render() {
+    console.log('公共函数:commonFun查看');
     return (
-      <Layout>
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={['2']}
-            style={{ lineHeight: '64px' }}
-          >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header>
-        <Content style={{ padding: '0 50px', marginTop: 64 }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
-      </Layout>
+      <BrowserRouter>
+      <div className="App">
+        <Layout style={{ height: "100%" }}>
+        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+          <div className='logo' style={{color:'#fff'}}></div>
+            <Nav/>
+          </Sider>
+          <Layout>
+            <Header
+              style={{ background: "#424242 !important", padding: 0, paddingLeft: "20px" }}
+            >
+              <Icon
+                className="trigger"
+                type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
+                onClick={this.toggle}
+                style={{ fontSize: 20,color:'#fff' }}
+              />
+            </Header>
+            {
+              <style>
+                .text{
+                  
+                }
+              </style>
+            }
+              <RouterUrl/>
+              <Footer style={{ textAlign:'center' }}>
+            </Footer>
+              </Layout>
+              </Layout>
+      </div>
+      </BrowserRouter>
     );
   }
 }
-
 export default App;
