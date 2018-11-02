@@ -9,11 +9,19 @@ import {
   Icon,
   Breadcrumb
  } from "antd";
+import { Link } from "react-router-dom";
+
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { Link } from "react-router-dom";
+
+import { post, get } from '../../http/index'
+
 const { Content } = Layout;
 const ButtonGroup = Button.Group;
+
+Component.prototype.post = post
+Component.prototype.get = get
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +32,11 @@ class ProductList extends Component {
       current: 1,
     };
   }
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     NProgress.start();
+    this.post('projectList').then(res => {
+      console.log(res)
+    })
   };
   componentDidMount = () => {
     NProgress.done();
