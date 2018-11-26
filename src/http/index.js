@@ -12,6 +12,10 @@ axios.interceptors.response.use(response => response, error => Promise.resolve(e
 
 const checkStatus = response => {
   //这里可以做loading hide处理
+  if (!response) {
+    alert('无法连接到服务器')
+    return
+  }
   if (response.status === 200 || response.status === 304) {
     return response.data
   }

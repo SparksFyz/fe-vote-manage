@@ -34,9 +34,9 @@ class ProductList extends Component {
   }
   UNSAFE_componentWillMount = () => {
     NProgress.start();
-    this.post('projectList').then(res => {
-      console.log(res)
-    })
+    // this.post('projectList').then(res => {
+    //   console.log(res)
+    // })
   };
   componentDidMount = () => {
     NProgress.done();
@@ -50,7 +50,7 @@ class ProductList extends Component {
       hot: '10184',
       voteNum:'5317'
     }, {
-      key: '1',
+      key: '2',
       productName: '安发',
       id: 32,
       hot: '10184',
@@ -78,23 +78,29 @@ class ProductList extends Component {
       dataIndex: 'id_actions',
       render: (id, record) => {
         // return <span style={{ color:'#1890ff' }} onClick={() => { this.modifyItem(record); }}>详情</span>;
-        return <Link to={`/vote/pageination`}>详情</Link>;
+        return <Link to={{ pathname: '/vote/product', search: "?id=12",}}>详情</Link>;
       },
     },];
     return (
       <div style={{ margin:30 }}>
-        <Breadcrumb>
-          <Breadcrumb.Item href="">
-            <Icon type="home" />
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href="">
-            <Icon type="credit-card" />
-            <span>投票管理</span>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            产品列表
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <div>
+          <Breadcrumb>
+            <Breadcrumb.Item href="">
+              <Icon type="home" />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="">
+              <Icon type="credit-card" />
+              <span>投票管理</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              产品列表
+            </Breadcrumb.Item>
+          </Breadcrumb>
+
+          <Link to={{ pathname: '/vote/product', search: "?id=12", }}>
+            <Button type="primary">新增产品</Button>
+          </Link>
+        </div>
         <Table dataSource={dataSource} columns={columns} />
 
       </div>

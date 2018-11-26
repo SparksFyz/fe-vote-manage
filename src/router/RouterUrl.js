@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Icons from '../components/UI/Icons';
 import ProductList from '../components/UI/ProductList';
+import Product from '../components/UI/Product'
 import DropdownMenu from '../components/UI/DropdownMenu';
 import Pageination from '../components/UI/Pageination';
 import Grid from '../components/Layout/Grid';
@@ -15,6 +16,7 @@ export default class RouterUrl extends Component{
                 <Switch>
                     <Route exact path="/" component={ProductList}/>
                     <Route path='/vote/list' component={ProductList}/>
+                    <Route path='/vote/product' component={Product} />
                     <Route path='/vote/icons' component={Icons}/>
                     <Route path='/vote/dropdown' component={DropdownMenu}/>
                     <Route path='/vote/pageination' component={Pageination}/>
