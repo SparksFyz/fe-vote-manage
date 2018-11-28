@@ -33,7 +33,7 @@ class Product extends Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    // const { getFieldDecorator } = this.props.form;
     return (
       <div style={{ margin: 30 }}>
         <Breadcrumb>
@@ -48,7 +48,7 @@ class Product extends Component {
             产品详情
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Form onSubmit={this.handleSubmit}>
+        {/* <Form onSubmit={this.handleSubmit}>
         <FormItem
           label="Note"
           labelCol={{ span: 5 }}
@@ -84,10 +84,12 @@ class Product extends Component {
             Submit
           </Button>
         </FormItem>
-      </Form>
+      </Form> */}
       </div>
     )
+    
   }
+  
   
 }
 
