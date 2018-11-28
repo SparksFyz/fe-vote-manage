@@ -34,9 +34,9 @@ class ProductList extends Component {
   }
   UNSAFE_componentWillMount = () => {
     NProgress.start();
-    // this.post('projectList').then(res => {
-    //   console.log(res)
-    // })
+    this.post('vote/project/listProject').then(res => {
+      console.log(res)
+    })
   };
   componentDidMount = () => {
     NProgress.done();

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import QS from 'qs'
 
-const PREFIX_URL = 'http://huwaicanju.com/Wechat/user'
+const PREFIX_URL = 'http://47.104.228.159:8000'
 
 axios.interceptors.request.use(config => {
   //这里可以做loading show处理
@@ -46,7 +46,8 @@ const post = (url, data) => {
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }
+    },
+    withCredentials: true
   }).then(checkStatus).then(checkCode)
 }
 
@@ -58,7 +59,8 @@ const get = (url, params) => {
     timeout: 30000,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
-    }
+    },
+    withCredentials: true
   }).then(checkStatus).then(checkCode)
 };
 
