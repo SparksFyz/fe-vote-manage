@@ -27,58 +27,50 @@ class ProductList extends Component {
     super(props);
     this.state = {
       visible: false,
-      record: {},
+      record: [],
       size: 10,
       current: 1,
     };
   }
   UNSAFE_componentWillMount = () => {
     NProgress.start();
-    // this.post('projectList').then(res => {
-    //   console.log(res)
-    // })
+    this.post('vote/project/listProject').then(res => {
+      console.log(res.data)
+      this.setState({
+        record : res.data
+      })
+    })
   };
   componentDidMount = () => {
     NProgress.done();
   };
 
   render() {
-    const dataSource = [{
-      key: '1',
-      productName: '美罗',
-      id: 32,
-      hot: '10184',
-      voteNum:'5317'
-    }, {
-      key: '2',
-      productName: '安发',
-      id: 32,
-      hot: '10184',
-      voteNum:'5317'
-    }];
+
+    const {record} = this.state
     
     const columns = [{
       title: '产品编号',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'projectId',
+      key: 'projectId',
     }, {
       title: '产品名称',
-      dataIndex: 'productName',
-      key: 'productName',
+      dataIndex: 'projectName',
+      key: 'projectName',
     }, {
       title: '人气',
-      dataIndex: 'hot',
-      key: 'hot',
+      dataIndex: 'heatValue',
+      key: 'heatValue',
     },{
       title: '票数',
-      dataIndex: 'voteNum',
-      key: 'voteNum',
+      dataIndex: 'voteCount',
+      key: 'voteCount',
     },{
       title: '操作',
       dataIndex: 'id_actions',
       render: (id, record) => {
         // return <span style={{ color:'#1890ff' }} onClick={() => { this.modifyItem(record); }}>详情</span>;
-        return <Link to={{ pathname: '/vote/product', search: "?id=12",}}>详情</Link>;
+        return <Link to={{ pathname: '/vote/product', search: "?id="+record.projectId,}}>详情</Link>;
       },
     },];
     return (
@@ -98,10 +90,10 @@ class ProductList extends Component {
           </Breadcrumb>
 
           <Link to={{ pathname: '/vote/product', search: "?id=12", }}>
-            <Button type="primary">新增产品</Button>
+            <Button type="primary" style = {{margin:20}}>新增产品</Button>
           </Link>
         </div>
-        <Table dataSource={dataSource} columns={columns} />
+        <Table dataSource={record} columns={columns} />
 
       </div>
 
