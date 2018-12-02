@@ -37,15 +37,16 @@ const checkCode = res => {
 }
 
 const post = (url, data) => {
-  !(data instanceof FormData) && (data = QS.stringify(data))
+  // !(data instanceof FormData) && (data = QS.stringify(data))
+  
   return axios({
     method: 'post',
     url: `${PREFIX_URL}/${url}`,
-    data: QS.stringify(data),
+    data: JSON.stringify(data),
     timeout: 30000,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       
     }
   }).then(checkStatus).then(checkCode)

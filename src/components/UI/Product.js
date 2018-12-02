@@ -1,39 +1,64 @@
 import React, { Component } from "react"
 
-
-import { Breadcrumb, Icon,Form, Select, Input, Button } from 'antd'
-
+import {
+  Breadcrumb,
+  Icon,
+  Form,
+  Input,
+  Button,
+  message,
+} from 'antd'
 
 import { post, get } from '../../http/index'
-const FormItem = Form.Item;
-const Option = Select.Option;
 
 Component.prototype.post = post
 Component.prototype.get = get
 
+const FormItem = Form.Item;
+
 class Product extends Component {
   // constructor(props) {
   //   super(props)
-    
+  
   // }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const projectId = this.props.location.search.split('=')[1]
+        const payload = {
+          ...values,
+          projectId: Number(projectId)
+        }
+        
+        this.post('vote/project/updateProject', payload).then(res => {
+          message.success('更新项目成功');
+        })
       }
     });
   }
 
-  handleSelectChange = (value) => {
-    console.log(value);
+  componentDidMount = () => {
+    const { projectName, voteCount, heatValue } = this.props.location && this.props.location.params
+
     this.props.form.setFieldsValue({
-      note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
+      projectName: projectName,
+      voteCount: voteCount,
+      heatValue: heatValue
     });
-  }
+  };
 
   render() {
-    // const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: { span: 2 },
+      wrapperCol: { span: 8 },
+    }
+    const buttonItemLayout = {
+      wrapperCol: { span: 14, offset: 4 },
+    }
+
+    const { getFieldDecorator } = this.props.form
+
     return (
       <div style={{ margin: 30 }}>
         <Breadcrumb>
@@ -48,43 +73,42 @@ class Product extends Component {
             产品详情
           </Breadcrumb.Item>
         </Breadcrumb>
-        {/* <Form onSubmit={this.handleSubmit}>
-        <FormItem
-          label="Note"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 12 }}
-        >
-          {getFieldDecorator('note', {
-            rules: [{ required: true, message: 'Please input your note!' }],
-          })(
-            <Input />
-          )}
-        </FormItem>
-        <FormItem
-          label="Gender"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 12 }}
-        >
-          {getFieldDecorator('gender', {
-            rules: [{ required: true, message: 'Please select your gender!' }],
-          })(
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={this.handleSelectChange}
-            >
-              <Option value="male">male</Option>
-              <Option value="female">female</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem
-          wrapperCol={{ span: 12, offset: 5 }}
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </FormItem>
-      </Form> */}
+        
+        <Form layout="horizontal" onSubmit={this.handleSubmit} style={{ marginTop: 60 }}>
+          <FormItem
+            label="项目名"
+            {...formItemLayout}
+          >
+            {getFieldDecorator('projectName', {
+              rules: [{ required: true, message: '请输入项目名称!' }],
+            })(
+              <Input placeholder="input placeholder" />
+            )}
+          </FormItem>
+          <FormItem
+            label="投票数"
+            {...formItemLayout}
+          >
+            {getFieldDecorator('voteCount', {
+              rules: [{ required: true, message: '请输入票数!' }],
+            })(
+              <Input placeholder="input placeholder" />
+            )}
+          </FormItem>
+          <FormItem
+            label="热度"
+            {...formItemLayout}
+          >
+            {getFieldDecorator('heatValue', {
+              rules: [{ required: true, message: '请输入热度!' }],
+            })(
+              <Input placeholder="input placeholder" />
+            )}
+          </FormItem>
+          <FormItem {...buttonItemLayout}>
+            <Button htmlType="submit" type="primary">提交</Button>
+          </FormItem>
+        </Form>
       </div>
     )
     
@@ -92,6 +116,5 @@ class Product extends Component {
   
   
 }
-
-export default Product
+export default Form.create()(Product)
 
